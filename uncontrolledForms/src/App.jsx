@@ -1,16 +1,16 @@
 import React from 'react';
-import UncontrolledLogin from './UncontrolledLogin';
+import FocusableInput from './FocusableInput'; 
+import MountEffectComponent from './MountEffectComponent';
 
 const App = () => {
-  const handleLogin = (loginData) => {
-    console.log('Login Data:', loginData);
-    // Puoi inviare i dati a un server o fare altro con i dati
-  };
-
   return (
     <div>
-      <h1>Uncontrolled Login Example</h1>
-      <UncontrolledLogin onLogin={handleLogin} />
+      <h1>Benvenuto nella nostra applicazione</h1>
+      
+    
+      <FocusableInput />
+     
+      <MountEffectComponent />
     </div>
   );
 };
