@@ -1,17 +1,12 @@
 import React from 'react';
-import Colors from './Colors'; 
+import TodoList from './TodoList'; // Importiamo il componente TodoList
 
 const App = () => {
-  const colors = [
-    { id: 1, name: 'Red' },
-    { id: 2, name: 'Green' },
-    { id: 3, name: 'Blue' },
-  ];
-
   return (
     <div>
-      <h1>Color List</h1>
-      <Colors colors={colors} /> 
+      <h1>My Todo Application</h1>
+      {/* Renderizza il componente TodoList */}
+      <TodoList />
     </div>
   );
 };
