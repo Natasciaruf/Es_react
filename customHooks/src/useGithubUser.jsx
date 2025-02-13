@@ -1,35 +1,24 @@
 import { useState, useEffect } from 'react';
+import useSWR from 'swr';
+import { SWRConfig } from 'swr';
+
+// Funzione di fetcher di default
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function useGithubUser(username) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Se il nome utente è null, non effettuare alcuna richiesta
+  const { data, error, mutate } = useSWR(
+    username ? `https://api.github.com/users/${username}` : null,
+    fetcher
+  );
 
-  useEffect(() => {
-    if (!username) return;
-
-    const fetchUserData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetch(`https://api.github.com/users/${Natasciaruf}`);
-        if (!response.ok) {
-          throw new Error('Utente non trovato');
-        }
-        const data = await response.json();
-        setUser(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [username]);
-
-  return { user, loading, error };
+  // Restituisci lo stato, l'errore e una funzione per forzare il refetch dei dati
+  return {
+    user: data,
+    isLoading: !data && !error,
+    isError: error,
+    refetch: mutate, // Funzione per forzare il refetch
+  };
 }
 
 export default useGithubUser;
